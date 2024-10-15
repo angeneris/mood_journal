@@ -14,6 +14,41 @@
         <div id="moodOutput"></div>
     </div>
 
-    <script src="app.js"></script>
+    <script>
+        document.getElementById('submitEntry').addEventListener('click', async () => {
+            const title = "Mood Journal Entry"; // Placeholder title for now
+            const content = document.getElementById('journalEntry').value;
+            const emotion = "neutral"; // Placeholder for emotion
+        
+            if (!content) {
+                alert("Please write something in the journal entry");
+                return;
+            }
+        
+            try {
+                const response = await fetch('/journal', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        title,
+                        content,
+                        emotion,
+                    }),
+                });
+        
+                const data = await response.json();
+                if (response.ok) {
+                    document.getElementById('moodOutput').innerText = 'Entry successfully saved!';
+                } else {
+                    document.getElementById('moodOutput').innerText = `Error: ${data.message}`;
+                }
+            } catch (err) {
+                document.getElementById('moodOutput').innerText = 'Error connecting to server.';
+            }
+        });
+        </script>
+        
 </body>
 </html>

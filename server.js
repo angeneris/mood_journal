@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const journalRoutes = require('./routes');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -19,10 +20,14 @@ app.get('/', (req, res) => {
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
     useUnifiedTopology: true,
 })
 .then(() => console.log('MongoDB connected'))
 .catch((err) => console.log('MongoDB connection error:', err));
+
+// Use the journal routes for handling requests to /journal
+app.use('/journal', journalRoutes);
 
 // Start the server
 app.listen(PORT, () => {
@@ -32,10 +37,8 @@ app.listen(PORT, () => {
 // Optional: handle unhandled rejections and exceptions
 process.on('unhandledRejection', (err) => {
     console.error('Unhandled Rejection:', err);
-    // Optionally shut down the server here if needed
 });
 
 process.on('uncaughtException', (err) => {
     console.error('Uncaught Exception:', err);
-    // Optionally shut down the server here if needed
 });
