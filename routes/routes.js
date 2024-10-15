@@ -1,16 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const JournalEntry = require('../models/JournalEntry'); // Import the JournalEntry model
+const JournalEntry = require('../models/JournalEntry'); 
 
 // POST route to add a new journal entry
 router.post('/', async (req, res) => {
     try {
         const { title, content, emotion } = req.body;
-        const newEntry = new JournalEntry({
-            title,
-            content,
-            emotion
-        });
+        const newEntry = new JournalEntry({ title, content, emotion });
         await newEntry.save();
         res.status(201).json({ message: 'Journal entry saved!', entry: newEntry });
     } catch (err) {
@@ -28,5 +24,4 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Export the router
 module.exports = router;
