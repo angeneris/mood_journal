@@ -16,39 +16,40 @@
 
     <script>
         document.getElementById('submitEntry').addEventListener('click', async () => {
-            const title = "Mood Journal Entry"; // Placeholder title for now
+            const title = "Mood Journal Entry"; // Placeholder title
             const content = document.getElementById('journalEntry').value;
-            const emotion = "neutral"; // Placeholder for emotion
-        
-            if (!content) {
-                alert("Please write something in the journal entry");
+
+            // Validate content before submission
+            if (!content.trim()) {
+                alert('Please enter your feelings before submitting.');
                 return;
             }
-        
+
             try {
                 const response = await fetch('/journal', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        title,
-                        content,
-                        emotion,
-                    }),
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, content }) // Send title and content
                 });
-        
-                const data = await response.json();
-                if (response.ok) {
-                    document.getElementById('moodOutput').innerText = 'Entry successfully saved!';
-                } else {
-                    document.getElementById('moodOutput').innerText = `Error: ${data.message}`;
+
+                // Check if the response is OK (status code 200-299)
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
                 }
-            } catch (err) {
-                document.getElementById('moodOutput').innerText = 'Error connecting to server.';
+
+                const data = await response.json();
+                console.log('Success:', data); // Log success message
+                document.getElementById('moodOutput').innerText = data.message; // Display success message
+
+                // Clear the textarea after submission
+                document.getElementById('journalEntry').value = '';
+
+            } catch (error) {
+                console.error('Error:', error); // Log error message
+                document.getElementById('moodOutput').innerText = 'Failed to save entry.'; // Display error message
             }
         });
-        </script>
+    </script>
         
 </body>
 </html>

@@ -11,7 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 
 // Middleware to parse JSON
-app.use(express.json());
+app.use(express.json()); // This middleware is essential for parsing JSON bodies
 app.use(express.static('public')); // Serve static files from a public directory
 
 // Basic route for testing
@@ -20,11 +20,9 @@ app.get('/', (req, res) => {
 });
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-    
-})
-.then(() => console.log('MongoDB connected'))
-.catch((err) => console.log('MongoDB connection error:', err));
+mongoose.connect(process.env.MONGO_URI, {})
+    .then(() => console.log('MongoDB connected'))
+    .catch((err) => console.log('MongoDB connection error:', err));
 
 // Use the journal routes for handling requests to /journal
 app.use('/journal', journalRoutes);
