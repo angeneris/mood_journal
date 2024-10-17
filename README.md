@@ -32,8 +32,6 @@ Negative message example:
 
 
 
-![image](https://github.com/user-attachments/assets/8bc62e7a-d3d2-4b98-9997-e18fc9aed548)
-
 
 **Future Features**
 
