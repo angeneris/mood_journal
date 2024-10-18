@@ -1,6 +1,6 @@
 **Mood Journal Feature (In Development)**
 
-This is a web based application designed to help users track their emotions and thoughts through daily journal entries. The app analyzes the sentiment of each journal entry and categorizes it as positive, neutral, or negative based on the content, giving users insight into their mood patterns. This willbe a feature in an upcoming application. 
+This is a web based application designed to help users track their emotions and thoughts through daily journal entries. The app analyzes the sentiment of each journal entry and categorizes it as positive, neutral, or negative based on the content, giving users insight into their mood patterns. The background color of the submission screen is set to reflect the mood of the journal entry. This will be a feature of a broader upcoming application with more interactive components to come. 
 
 **Features**<br>
 Current Functionality<br>
